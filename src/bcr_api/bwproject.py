@@ -264,6 +264,8 @@ class BWProject(BWUser):
         client_id="brandwatch-api-client",
         client_secret=None,
         apiurl="https://api.brandwatch.com/",
+        project_name=None,
+        project_id=None,
     ):
         """
         Creates a BWProject object - inheriting directly from the BWUser class.
@@ -285,10 +287,11 @@ class BWProject(BWUser):
             client_secret=client_secret,
             apiurl=apiurl,
         )
-        self.project_name = ""
-        self.project_id = -1
-        self.project_address = ""
-        self.get_project(project)
+        self.project_name = project_name if project_name else ""
+        self.project_id = project_id if project_id else -1
+        self.project_address = "projects/" + str(self.project_id) + "/" if project_id else ""
+        if project:
+            self.get_project(project)
 
     def get_project(self, project):
         """
