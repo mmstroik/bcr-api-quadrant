@@ -838,6 +838,41 @@ class BWMentions:
 
         return filled
 
+ 
+class BWSentiment:
+    """
+    This class handles editing sentiment on lists of mentions.
+    For retrieving mentions, see the BWQueries or BWGroups class instead.
+    """
+
+    def __init__(self, bwproject):
+        """
+        Creates a BWSentiment object.
+        Args:
+            bwproject: Brandwatch project. This is a BWProject object.
+        """
+        self.project = bwproject
+
+    def patch_mentions(self, filled_data):
+        """
+        Edits a list of mentions using a pre-existing dictionary containing the changes.
+        This function will also handle uploading categories and tags.
+
+        Args:
+            filled_data: Dictionary containing mention changes, formatted for the patch API.
+
+        Raises:
+            KeyError: If there is an error when attempting to edit the mentions.
+        """
+        response = self.project.patch(
+            endpoint="data/mentions", data=json.dumps(filled_data)
+        )
+
+        if "errors" in response:
+            raise KeyError("patch failed", response)
+
+        logger.info("{} mentions updated".format(len(response)))
+
 
 class BWAuthorLists(BWResource):
     """
