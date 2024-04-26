@@ -255,7 +255,7 @@ class BWProject(BWUser):
 
     def __init__(
         self,
-        project,
+        project=None,
         token=None,
         token_path="tokens.txt",
         username=None,
