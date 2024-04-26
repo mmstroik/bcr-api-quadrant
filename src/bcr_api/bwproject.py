@@ -243,7 +243,7 @@ class BWUser:
         return response.json()
 
 
-class BWProject(BWUser):
+class BWProject:
     """
     This class is required for working with project-level resources, such as queries or groups.
 
@@ -257,7 +257,7 @@ class BWProject(BWUser):
         self,
         project=None,
         token=None,
-        token_path="tokens.txt",
+        token_path=None,
         username=None,
         password=None,
         grant_type="api-password",
@@ -286,6 +286,8 @@ class BWProject(BWUser):
             client_id=client_id,
             client_secret=client_secret,
             apiurl=apiurl,
+            project_name=project_name,
+            project_id=project_id,
         )
         self.project_name = project_name if project_name else ""
         self.project_id = project_id if project_id else -1
